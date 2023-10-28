@@ -412,7 +412,7 @@ public class FrmJenis extends javax.swing.JFrame {
                 p.close();
                 
                 
-                JOptionPane.showMessageDialog(null,"Penyimpanan Data Berhasil");
+                JOptionPane.showMessageDialog(null,"Perubahan Data Berhasil");
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(this,ex.getMessage());
             }finally{
@@ -444,7 +444,7 @@ public class FrmJenis extends javax.swing.JFrame {
                 p.close();
                 
                 
-                JOptionPane.showMessageDialog(null,"Penyimpanan Data Berhasil");
+                JOptionPane.showMessageDialog(null,"Hapus Data Berhasil");
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(this,ex.getMessage());
             }finally{
