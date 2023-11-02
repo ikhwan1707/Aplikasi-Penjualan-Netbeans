@@ -383,7 +383,7 @@ public class FrmPetugas extends javax.swing.JFrame {
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         // TODO add your handling code here:
-        
+       
     }//GEN-LAST:event_tableMouseClicked
 
     /**
