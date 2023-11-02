@@ -35,7 +35,29 @@ public class FrmPetugas extends javax.swing.JFrame {
         table.setModel(tableModel);
         Tabel(table, new int[]{90,300,340,260,100});
         setDefaultTable();
-        //SetEditOff();
+        SetEnabledFalse();
+    }
+    
+     public void SetEnabledFalse(){
+       IDPetugas.setEnabled(false);
+        NamaPetugas.setEnabled(false);
+        Alamat.setEnabled(false);
+        Email.setEnabled(false);
+        Telpon.setEnabled(false);
+        Save.setEnabled(false);
+        Update.setEnabled(false);
+        Delete.setEnabled(false);
+    }
+    
+    public void SetEnabledTrue(){
+       IDPetugas.setEnabled(true);
+        NamaPetugas.setEnabled(true);
+        Alamat.setEnabled(true);
+        Email.setEnabled(true);
+        Telpon.setEnabled(true);
+        Save.setEnabled(true);
+        Update.setEnabled(true);
+        Delete.setEnabled(true);
     }
     
     private javax.swing.table.DefaultTableModel tableModel=getDefaultTabelModel();
@@ -89,6 +111,43 @@ public class FrmPetugas extends javax.swing.JFrame {
         }catch(SQLException e){ 
             System.out.println("Terjadi Error");
         }
+    }
+    
+    int row = 0;
+    public void Tampil(){
+        row = table.getSelectedRow();
+        IDPetugas.setText(tableModel.getValueAt(row, 0).toString());
+        NamaPetugas.setText(tableModel.getValueAt(row, 1).toString());
+        Alamat.setText(tableModel.getValueAt(row, 2).toString());
+        Email.setText(tableModel.getValueAt(row, 3).toString());
+        Telpon.setText(tableModel.getValueAt(row, 4).toString());
+        Save.setEnabled(false);
+        Update.setEnabled(true);
+        Delete.setEnabled(true);
+        SetEditOn();
+    }
+    
+    public void BersihData(){
+        IDPetugas.setText("");
+        NamaPetugas.setText("");
+        Alamat.setText("");
+        Email.setText("");
+        Telpon.setText("");
+    }
+    
+    public void SetEditOff(){
+        IDPetugas.setEnabled(false);
+        NamaPetugas.setEnabled(false);
+        Alamat.setEnabled(false);
+        Email.setEnabled(false);
+        Telpon.setEnabled(false);
+    }
+    public void SetEditOn(){
+        IDPetugas.setEnabled(true);
+        NamaPetugas.setEnabled(true);
+        Alamat.setEnabled(true);
+        Email.setEnabled(true);
+        Telpon.setEnabled(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -289,7 +348,12 @@ public class FrmPetugas extends javax.swing.JFrame {
 
     private void AddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddNewActionPerformed
         // TODO add your handling code here:
-        
+        BersihData();
+        IDPetugas.requestFocus();
+        Save.setEnabled(true);
+        Update.setEnabled(false);
+        Delete.setEnabled(false);
+        SetEditOn();
     }//GEN-LAST:event_AddNewActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
