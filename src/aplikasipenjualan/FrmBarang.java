@@ -33,12 +33,14 @@ public class FrmBarang extends javax.swing.JFrame {
         this.setLocation((screenSize.width - frameSize.width) / 2,
         (screenSize.height = screenSize.height) / 6);
         
-       
+        Tabel(Table, new int[]{90,300,340,260,100});
         loadData();
        
         SetEnabledFalse();
         TampilComboJenis();
     }
+    
+    
     
     public  void TampilComboJenis(){
         try {
