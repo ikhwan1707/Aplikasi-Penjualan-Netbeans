@@ -105,9 +105,7 @@ public class FrmPetugas extends javax.swing.JFrame {
                 data[4] = res.getString(5);
                 tableModel.addRow(data);
             }
-            res.close();
-            s.close();
-            c.close();
+          
         }catch(SQLException e){ 
             System.out.println("Terjadi Error");
         }
@@ -358,32 +356,151 @@ public class FrmPetugas extends javax.swing.JFrame {
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         // TODO add your handling code here:
+       String ID=IDPetugas.getText();
+        String NM=NamaPetugas.getText();
+        String AM=Alamat.getText();
+        String EM=Email.getText();
+        String TP=Telpon.getText();
         
+        if ((ID.isEmpty()) | (NM.isEmpty()) |(AM.isEmpty()) |(EM.isEmpty())|(TP.isEmpty())) {
+            JOptionPane.showMessageDialog(null,"data tidak boleh kosong, silahkan dilengkapi");
+            IDPetugas.requestFocus();
+        }else {
+            try {
+            Connection c = connection.getKoneksi();
+            Statement stt = c.createStatement();
+            String SQL = "insert into tblpetugas values('"+IDPetugas.getText()+"',"+
+            "'"+NamaPetugas.getText()+"',"+
+            "'"+Alamat.getText()+"',"+
+            "'"+Email.getText()+"',"+
+            "'"+Telpon.getText()+"')";
+            stt.executeUpdate(SQL);
+            data[0] = IDPetugas.getText();
+            data[1] = NamaPetugas.getText();
+            data[2] = Alamat.getText();
+            data[3] = Email.getText();
+            data[4] = Telpon.getText();
+            tableModel.insertRow(0, data);
+            stt.close();
+            c.close();
+            
+            JOptionPane.showMessageDialog(null,"Penyimpanan Data Berhasil");
+            
+            BersihData();
+            Save.setEnabled(false);
+            SetEditOff();
+            
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+            }
+        } 
     }//GEN-LAST:event_SaveActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
+        String ID=IDPetugas.getText();
+        String NM=NamaPetugas.getText();
+        String AM=Alamat.getText();
+        String EM=Email.getText();
+        String TP=Telpon.getText();
         
+        if ((ID.isEmpty()) | (NM.isEmpty()) |(AM.isEmpty()) |(EM.isEmpty())|(TP.isEmpty())) {
+            JOptionPane.showMessageDialog(null,"data tidak boleh kosong, silahkan dilengkapi");
+            IDPetugas.requestFocus();
+        }else {
+            try {
+                
+                Connection kon = connection.getKoneksi();
+                Statement stt = kon.createStatement();
+                String SQL = "Update tblpetugas set namapetugas='"+NamaPetugas.getText()+"',"+
+                "alamat='"+Alamat.getText()+"',"+
+                "email='"+Email.getText()+"',"+
+                "telpon='"+Telpon.getText()+"'"+
+                "Where idpetugas='"+IDPetugas.getText()+"'";
+                stt.executeUpdate(SQL);
+                
+                data[0] = IDPetugas.getText();
+                data[1] = NamaPetugas.getText();
+                data[2] = Alamat.getText();
+                data[3] = Email.getText();
+                data[4] = Telpon.getText();
+                tableModel.removeRow(row);
+                tableModel.insertRow(row,data);
+                
+                stt.close();
+                kon.close();
+                
+                JOptionPane.showMessageDialog(null,"Perubahan Data Berhasil");
+                
+                BersihData();
+                Save.setEnabled(false);
+                SetEditOff();
+                
+            } catch (Exception ex) {
+               JOptionPane.showMessageDialog(this,ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
         // TODO add your handling code here:
+        String ID=IDPetugas.getText();
+        String NM=NamaPetugas.getText();
+        String AM=Alamat.getText();
+        String EM=Email.getText();
+        String TP=Telpon.getText();
         
+        if ((ID.isEmpty()) | (NM.isEmpty()) |(AM.isEmpty()) |(EM.isEmpty())|(TP.isEmpty())) {
+        JOptionPane.showMessageDialog(null,"data tidak boleh kosong, silahkan dilengkapi");
+        IDPetugas.requestFocus();
+        }else {
+            try {
+                
+                Connection kon = connection.getKoneksi();
+                Statement stt = kon.createStatement();
+                String SQL = "Delete From tblpetugas Where idpetugas='"+IDPetugas.getText().toString()+"'";
+                stt.executeUpdate(SQL);
+                
+                data[0] = IDPetugas.getText();
+                data[1] = NamaPetugas.getText();
+                data[2] = Alamat.getText();
+                data[3] = Email.getText();
+                data[4] = Telpon.getText();
+                tableModel.removeRow(row);
+                
+                stt.close();
+                kon.close();
+                
+                JOptionPane.showMessageDialog(null,"Hapus Data Berhasil");
+                
+                BersihData();
+                Save.setEnabled(false);
+                SetEditOff();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_DeleteActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         // TODO add your handling code here:
-        
+        BersihData();
+        SetEnabledFalse();
+        //SetEditOff();
     }//GEN-LAST:event_CancelActionPerformed
 
     private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed
         // TODO add your handling code here:
-       
+       if(JOptionPane.showConfirmDialog(null,"This application will be close \n if you press button OK","Information", JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE)==JOptionPane.OK_OPTION)
+        this.dispose();
+        
     }//GEN-LAST:event_CloseActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         // TODO add your handling code here:
-       
+        if (evt.getClickCount()==1) {
+            Tampil();
+        }
     }//GEN-LAST:event_tableMouseClicked
 
     /**
