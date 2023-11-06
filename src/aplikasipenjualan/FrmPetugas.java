@@ -105,7 +105,7 @@ public class FrmPetugas extends javax.swing.JFrame {
                 data[4] = res.getString(5);
                 tableModel.addRow(data);
             }
-          
+           
         }catch(SQLException e){ 
             System.out.println("Terjadi Error");
         }
