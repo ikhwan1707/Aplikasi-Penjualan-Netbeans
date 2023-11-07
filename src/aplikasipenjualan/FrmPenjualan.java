@@ -49,6 +49,19 @@ public class FrmPenjualan extends javax.swing.JFrame {
     }
     
     
+    public void totalBiaya(){
+        int jumlahBaris = table.getRowCount();
+        double totalBiaya = 0;
+        int jumlahBarang;
+        double hargaBarang;
+        for (int i = 0; i < jumlahBaris; i++) {
+            jumlahBarang = Integer.parseInt(table.getValueAt(i, 4).toString());
+            hargaBarang = Double.parseDouble(table.getValueAt(i, 2).toString());
+            totalBiaya = totalBiaya + (jumlahBarang * hargaBarang);
+        }
+        Total.setText(String.format("%.2f", totalBiaya));
+        txTampil.setText("Rp "+ String.format("%.2f", totalBiaya));
+    }
     
     private javax.swing.table.DefaultTableModel tableModel=getDefaultTabelModel();
     
@@ -185,6 +198,7 @@ public class FrmPenjualan extends javax.swing.JFrame {
         Sisa.setText("0");
         Total.setText("0");
         SubTotal.setText("0");
+        txTampil.setText("Rp.0");
         
     }
     
@@ -252,9 +266,9 @@ public class FrmPenjualan extends javax.swing.JFrame {
 //        Bayar.setEnabled(true);
 //        Sisa.setEnabled(true);
 //        Total.setEnabled(true);
-//        Bayar.setText("0");
-//        Sisa.setText("0");
-//        Total.setText("0");
+        Bayar.setText("0");
+        Sisa.setText("0");
+        Total.setText("0");
 //        SubTotal.setText("0");
     }
     /**
@@ -293,6 +307,7 @@ public class FrmPenjualan extends javax.swing.JFrame {
         AddItem = new javax.swing.JButton();
         btncari = new javax.swing.JButton();
         KDBarang = new javax.swing.JTextField();
+        txTampil = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         IDPetugas = new javax.swing.JComboBox<>();
         NamaPetugas = new javax.swing.JTextField();
@@ -443,6 +458,11 @@ public class FrmPenjualan extends javax.swing.JFrame {
         jPanel3.add(btncari, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
         jPanel3.add(KDBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 120, -1));
 
+        txTampil.setBackground(new java.awt.Color(255, 153, 153));
+        txTampil.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txTampil.setText("Rp. 0");
+        jPanel3.add(txTampil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 290, -1));
+
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 730, 240));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -585,7 +605,7 @@ public class FrmPenjualan extends javax.swing.JFrame {
         a = Double.parseDouble(HargaJual.getText());
         b = Integer.parseInt(Jumlah.getText());
         c = a * b; 
-        SubTotal.setText(String.valueOf(c));
+        SubTotal.setText(String.format("%.2f", c));
     }//GEN-LAST:event_HitungActionPerformed
 
     private void SubTotalCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_SubTotalCaretUpdate
@@ -643,15 +663,10 @@ public class FrmPenjualan extends javax.swing.JFrame {
                 data[5] = SubTotal.getText();
                 tableModel.insertRow(0, data);
                 
-                double a;
-                int b;
-                double c;   
-                a = Double.parseDouble(HargaJual.getText());
-                b = Integer.parseInt(Jumlah.getText());
-                c = a * b; 
-                Total.setText(String.valueOf(c));
-        
-                //stt.close();
+                totalBiaya();
+                
+               
+                stt.close();
                 //kon.close();
                 KDBarang.requestFocus();
                 //AddItem.setEnabled(false);
@@ -683,8 +698,9 @@ public class FrmPenjualan extends javax.swing.JFrame {
                 "'"+Sisa.getText()+"',"+
                 "'"+Total.getText()+"')";
                 stt.executeUpdate(SQL);
+                
                 stt.close();
-                kon.close();
+                
                 BersihData();
                 SetEditOff();
             SaveTransaction.setEnabled(false);
@@ -731,16 +747,16 @@ public class FrmPenjualan extends javax.swing.JFrame {
 
     private void BayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BayarActionPerformed
         // TODO add your handling code here:
-        int total, bayar, kembalian;
+        double total, bayar, kembalian;
         
-        total = Integer.valueOf(Total.getText());
-        bayar = Integer.valueOf(Bayar.getText());
+        total = Double.valueOf(Total.getText());
+        bayar = Double.valueOf(Bayar.getText());
         
         if (total > bayar) {
             JOptionPane.showMessageDialog(null, "Uang tidak cukup untuk melakukan pembayaran");
         } else {
             kembalian = bayar - total;
-            Sisa.setText(String.valueOf(kembalian));
+            Sisa.setText(String.format("%.2f", kembalian));
         }
     }//GEN-LAST:event_BayarActionPerformed
 
@@ -862,5 +878,6 @@ public class FrmPenjualan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
+    private javax.swing.JTextField txTampil;
     // End of variables declaration//GEN-END:variables
 }
