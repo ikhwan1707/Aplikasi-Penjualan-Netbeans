@@ -7,14 +7,16 @@ package aplikasipenjualan;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.sql.*;
 import java.util.Date;
+
 /**
  *
  * @author utama digitall2
  */
 public class FrmPenjualan extends javax.swing.JFrame {
-
+    //private JTextField SubTotal, Total, Bayar;
     /**
      * Creates new form FrmPenjualan
      */
@@ -35,12 +37,18 @@ public class FrmPenjualan extends javax.swing.JFrame {
         
         table.setModel(tableModel);
         Tabel(table, new int[]{90,300,90,60,60,90});
+        
+        
+        
         setDefaultTable();
         TanggalOtomatis();
         SetEditOff();
-        TampilComboBarang();
+        //TampilComboBarang();
         TampilComboPetugas();
+        tampilfaktur();
     }
+    
+    
     
     private javax.swing.table.DefaultTableModel tableModel=getDefaultTabelModel();
     
@@ -122,29 +130,66 @@ public class FrmPenjualan extends javax.swing.JFrame {
             }
             
         }catch(SQLException e){ 
-            System.out.println("Terjadi Error");
+           System.err.println(e.getMessage());
         }
+    }
+    public void tampilfaktur() {
+ //  Date tanggal = new Date();
+ //  String kode;
+ //  NoFaktur.setText(""+ (String.format("%1$tY%1$tm%1$td",tanggal)));
+
+        Date sk = new Date();
+
+        SimpleDateFormat format1=new SimpleDateFormat("yyMMdd");
+        String time = format1.format(sk);
+        
+        
+        try{
+            String sql = "select right(nofaktur,1) as kd from tblpenjualan order by kd desc";
+            Connection c = connection.getKoneksi(); 
+            Statement s = c.createStatement();       
+            ResultSet rs = s.executeQuery(sql);
+                if (rs.next()){
+
+                    int kode = Integer.parseInt(rs.getString("kd"))+1;
+
+                    NoFaktur.setText(time+Integer.toString(kode));
+
+                }else{
+
+                    int kode = 1;
+
+                    NoFaktur.setText(time+Integer.toString(kode));
+
+                }
+            
+
+        }catch (SQLException | NumberFormatException e){
+
+            JOptionPane.showMessageDialog(null, e);
+
+        }     
     }
     
     public void BersihData(){
         tableModel.setRowCount(0);
-        NoFaktur.setText("");
+        //NoFaktur.setText("");
         NamaPetugas.setText("");
         IDPetugas.setSelectedIndex(0);
-        KodeBarang.setSelectedIndex(0);
+        KDBarang.setText("");
         NamaBarang.setText("");
         HargaJual.setText("");
         Jumlah.setText("");
         Stok.setText("");
-        Bayar.setText("");
-        Sisa.setText("");
-        Total.setText("");
-        SubTotal.setText("");
+        Bayar.setText("0");
+        Sisa.setText("0");
+        Total.setText("0");
+        SubTotal.setText("0");
         
     }
     
     public void BersihDetail(){
-        KodeBarang.setSelectedIndex(0);
+        KDBarang.setText("");
         NamaBarang.setText("");
         HargaJual.setText("");
         Stok.setText("");
@@ -153,45 +198,64 @@ public class FrmPenjualan extends javax.swing.JFrame {
     }
     
     public void SetEditOff(){
-        NoFaktur.setEnabled(false);
-        TglPenjualan.setEnabled(false);
-        IDPetugas.setEnabled(false);
-        KodeBarang.setEnabled(false);
-        NamaBarang.setEnabled(false);
-        HargaJual.setEnabled(false);
-        Stok.setEnabled(false);
-        SubTotal.setEnabled(false);
-        Jumlah.setEnabled(false);
-        Hitung.setEnabled(false);
-        Bayar.setEnabled(false);
-        Sisa.setEnabled(false);
-        Total.setEnabled(false);
-        CariData.setEnabled(false);
-        AddItem.setEnabled(false);
-        NamaPetugas.setEnabled(false);
-        SaveTransaction.setEnabled(false);
+        NoFaktur.setEnabled(false); 
+        TglPenjualan.setEnabled(false); 
+        IDPetugas.setEnabled(false); 
+        KDBarang.setEnabled(false); 
+        Jumlah.setEnabled(false); 
+        Hitung.setEnabled(false); 
+        CariData.setEnabled(false); 
+        AddItem.setEnabled(false); 
+        btncari.setEnabled(false);
+//        NoFaktur.setEnabled(false);
+//        TglPenjualan.setEnabled(false);
+//        IDPetugas.setEnabled(false);
+//        KodeBarang.setEnabled(false);
+//        NamaBarang.setEnabled(false);
+//        HargaJual.setEnabled(false);
+//        Stok.setEnabled(false);
+//        SubTotal.setEnabled(false);
+//        Jumlah.setEnabled(false);
+//        Hitung.setEnabled(false);
+//        Bayar.setEnabled(false);
+//        Sisa.setEnabled(false);
+//        Total.setEnabled(false);
+//        CariData.setEnabled(false);
+//        AddItem.setEnabled(false);
+//        NamaPetugas.setEnabled(false);
+//        SaveTransaction.setEnabled(false);
     }
     
     public void SetEditOn(){
-        NoFaktur.setEnabled(true);
-        TglPenjualan.setEnabled(true);
-        IDPetugas.setEnabled(true);
-        KodeBarang.setEnabled(true);
-        NamaBarang.setEnabled(true);
-        HargaJual.setEnabled(true);
-        Stok.setEnabled(true);
-        SubTotal.setEnabled(true);
-        Jumlah.setEnabled(true);
-        CariData.setEnabled(true);
-        Hitung.setEnabled(true);
-        AddItem.setEnabled(true);
-        Bayar.setEnabled(true);
-        Sisa.setEnabled(true);
-        Total.setEnabled(true);
-        Bayar.setText("0");
-        Sisa.setText("0");
-        Total.setText("0");
-        SubTotal.setText("0");
+        NoFaktur.setEnabled(true); 
+        TglPenjualan.setEnabled(true); 
+        IDPetugas.setEnabled(true); 
+        KDBarang.setEnabled(true); 
+        Jumlah.setEnabled(true); 
+        SaveTransaction.setEnabled(true); 
+        CariData.setEnabled(true); 
+        Hitung.setEnabled(true); 
+        AddItem.setEnabled(true); 
+        btncari.setEnabled(true);
+//        NoFaktur.setEnabled(true);
+//        TglPenjualan.setEnabled(true);
+//        IDPetugas.setEnabled(true);
+//        KodeBarang.setEnabled(true);
+//        NamaBarang.setEnabled(true);
+//        HargaJual.setEnabled(true);
+//        Stok.setEnabled(true);
+//        SubTotal.setEnabled(true);
+//        Jumlah.setEnabled(true);
+//        CariData.setEnabled(true);
+//        Hitung.setEnabled(true);
+//        AddItem.setEnabled(true);
+//        Bayar.setEnabled(true);
+//        Sisa.setEnabled(true);
+//        Total.setEnabled(true);
+//        Bayar.setText("0");
+//        Sisa.setText("0");
+//        Total.setText("0");
+//        SubTotal.setText("0");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -214,7 +278,6 @@ public class FrmPenjualan extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        KodeBarang = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         Stok = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -228,6 +291,8 @@ public class FrmPenjualan extends javax.swing.JFrame {
         HargaJual = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         AddItem = new javax.swing.JButton();
+        btncari = new javax.swing.JButton();
+        KDBarang = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         IDPetugas = new javax.swing.JComboBox<>();
         NamaPetugas = new javax.swing.JTextField();
@@ -298,7 +363,7 @@ public class FrmPenjualan extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Rp");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 590, -1, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 620, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Barang", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 162, 185))); // NOI18N
@@ -308,14 +373,6 @@ public class FrmPenjualan extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 162, 185));
         jLabel5.setText("Kode Barang");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
-
-        KodeBarang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Silahkan Pilih" }));
-        KodeBarang.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                KodeBarangItemStateChanged(evt);
-            }
-        });
-        jPanel3.add(KodeBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 190, -1));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 162, 185));
@@ -377,6 +434,15 @@ public class FrmPenjualan extends javax.swing.JFrame {
         });
         jPanel3.add(AddItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 290, -1));
 
+        btncari.setText("Cari");
+        btncari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncariActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btncari, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
+        jPanel3.add(KDBarang, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 120, -1));
+
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 730, 240));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -435,34 +501,43 @@ public class FrmPenjualan extends javax.swing.JFrame {
                 BayarCaretUpdate(evt);
             }
         });
-        jPanel2.add(Bayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 590, 180, -1));
+        Bayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BayarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Bayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, 180, -1));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Sisa");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 620, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 650, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Bayar");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 590, -1, -1));
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 620, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Rp");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 620, -1, -1));
-        jPanel2.add(Sisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 620, 180, -1));
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 650, -1, -1));
+
+        Sisa.setEnabled(false);
+        jPanel2.add(Sisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 650, 180, -1));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Total");
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 650, -1, -1));
+        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 590, -1, -1));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Rp");
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 650, -1, -1));
-        jPanel2.add(Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 650, 180, -1));
+        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 590, -1, -1));
+
+        Total.setEnabled(false);
+        jPanel2.add(Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 590, 180, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 84, 780, 710));
 
@@ -485,7 +560,7 @@ public class FrmPenjualan extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             Connection kon = connection.getKoneksi();
-            Statement stt = kon.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            Statement stt = kon.createStatement();
             String SQL = "SELECT * FROM tblpetugas where idpetugas='"+ IDPetugas.getSelectedItem().toString()+"'";
             ResultSet res = stt.executeQuery(SQL);
             res.absolute(1);
@@ -494,78 +569,62 @@ public class FrmPenjualan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_IDPetugasItemStateChanged
 
-    private void KodeBarangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_KodeBarangItemStateChanged
-        // TODO add your handling code here:
-        try {
-            Connection kon = connection.getKoneksi();
-            Statement stt = kon.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String SQL = "SELECT * FROM tblbarang where kodebarang='"+ KodeBarang.getSelectedItem().toString()+"'";
-            ResultSet res = stt.executeQuery(SQL);
-            res.absolute(1);
-            NamaBarang.setText(res.getString("namabarang"));
-            HargaJual.setText(res.getString("hargajual"));
-            Stok.setText(res.getString("stok"));
-        } catch (SQLException ex) {
-        }
-        Jumlah.requestFocus();
-        AddItem.setEnabled(true);
-    }//GEN-LAST:event_KodeBarangItemStateChanged
-
     private void AddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddNewActionPerformed
         // TODO add your handling code here:
-        SetEditOn();
-        NoFaktur.requestFocus();
+        SetEditOn(); 
         BersihData();
+        NoFaktur.requestFocus();  
+        tampilfaktur();
     }//GEN-LAST:event_AddNewActionPerformed
 
     private void HitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HitungActionPerformed
         // TODO add your handling code here:
-        //int a;
-        //int b;
-        double a, b,c;
+        double a;
+        int b;
+        double c;   
         a = Double.parseDouble(HargaJual.getText());
-        b = Double.parseDouble(Jumlah.getText());
-        c = a * b;
+        b = Integer.parseInt(Jumlah.getText());
+        c = a * b; 
         SubTotal.setText(String.valueOf(c));
     }//GEN-LAST:event_HitungActionPerformed
 
     private void SubTotalCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_SubTotalCaretUpdate
         // TODO add your handling code here:
-        int d, e;
-        
-            d = Integer.parseInt(SubTotal.getText());
-            e = Integer.parseInt(Total.getText());
-            e = e+d;
-            Total.setText(String.valueOf(e));
+//        double d, e,f;   
+//        d = Double.parseDouble(SubTotal.getText());  
+//        e = Double.parseDouble(Total.getText());  
+//        f = e+d;   
+//        Total.setText(String.valueOf(f)); 
         
     }//GEN-LAST:event_SubTotalCaretUpdate
 
     private void BayarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_BayarCaretUpdate
         // TODO add your handling code here:
-//        double a;
-//        double b;
+//        int a; 
+//        double b; 
 //        double c;
-//        a = Double.parseDouble(Bayar.getText());
-//        b = Double.parseDouble(Total.getText());
-//        c = a - b;
+//        
+//        a = Integer.parseInt(Bayar.getText());  
+//        b = Double.parseDouble(Total.getText()); 
+//        c = a - b;   
 //        Sisa.setText(String.valueOf(c));
     }//GEN-LAST:event_BayarCaretUpdate
 
     private void AddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItemActionPerformed
         // TODO add your handling code here:
         String NM=NoFaktur.getText();
-        String KB=KodeBarang.getSelectedItem().toString();
+        String KB=KDBarang.getText();
         String JM=Jumlah.getText();
         
         if ((NM.isEmpty()) | (KB.isEmpty()) |(JM.isEmpty())) {
         JOptionPane.showMessageDialog(null,"data tidak boleh kosong, silahkan dilengkapi");
-        KodeBarang.requestFocus();
+        KDBarang.requestFocus();
         }else {
             try{
                 Connection kon = connection.getKoneksi();
                 Statement stt = kon.createStatement();
                 String SQL = "insert into tbldetailpenjualan values('"+NoFaktur.getText()+"',"+
-                "'"+KodeBarang.getSelectedItem()+"',"+
+                "'"+KDBarang.getText()+"',"+
                 "'"+Jumlah.getText()+"',"+
                 "'"+SubTotal.getText()+"')";
                 stt.executeUpdate(SQL);
@@ -573,23 +632,32 @@ public class FrmPenjualan extends javax.swing.JFrame {
                 Connection kon1 = connection.getKoneksi();
                 Statement stt1 = kon.createStatement();
                 String SQL1 = "Update tblbarang Set stok=stok - '"+Jumlah.getText()+"'" +
-                "Where kodebarang='"+KodeBarang.getSelectedItem().toString()+"'";
+                "Where kodebarang='"+KDBarang.getText()+"'";
                 stt1.executeUpdate(SQL1);
                 
-                data[0] = KodeBarang.getSelectedItem().toString();
+                data[0] = KDBarang.getText();
                 data[1] = NamaBarang.getText();
                 data[2] = HargaJual.getText();
                 data[3] = Stok.getText();
                 data[4] = Jumlah.getText();
                 data[5] = SubTotal.getText();
                 tableModel.insertRow(0, data);
-                stt.close();
-                kon.close();
-                KodeBarang.requestFocus();
-                AddItem.setEnabled(false);
+                
+                double a;
+                int b;
+                double c;   
+                a = Double.parseDouble(HargaJual.getText());
+                b = Integer.parseInt(Jumlah.getText());
+                c = a * b; 
+                Total.setText(String.valueOf(c));
+        
+                //stt.close();
+                //kon.close();
+                KDBarang.requestFocus();
+                //AddItem.setEnabled(false);
                 SaveTransaction.setEnabled(true);
                 BersihDetail();
-                KodeBarang.requestFocus();
+                KDBarang.requestFocus();
             } catch(Exception ex){
                  System.out.println("Terjadi Error"+ex.getMessage());
             }
@@ -660,19 +728,40 @@ public class FrmPenjualan extends javax.swing.JFrame {
         BersihData();
         SetEditOff();
     }//GEN-LAST:event_CancelActionPerformed
+
+    private void BayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BayarActionPerformed
+        // TODO add your handling code here:
+        int total, bayar, kembalian;
+        
+        total = Integer.valueOf(Total.getText());
+        bayar = Integer.valueOf(Bayar.getText());
+        
+        if (total > bayar) {
+            JOptionPane.showMessageDialog(null, "Uang tidak cukup untuk melakukan pembayaran");
+        } else {
+            kembalian = bayar - total;
+            Sisa.setText(String.valueOf(kembalian));
+        }
+    }//GEN-LAST:event_BayarActionPerformed
+
+    private void btncariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncariActionPerformed
+        // TODO add your handling code here:
+        ListBarang a = new ListBarang();
+        a.setVisible(true);
+    }//GEN-LAST:event_btncariActionPerformed
     
     public void TampilComboBarang(){
-        try {
-            Connection kon = connection.getKoneksi();
-            Statement stt = kon.createStatement();
-            String SQL = "SELECT * FROM tblbarang";
-            ResultSet res = stt.executeQuery(SQL);
-            while(res.next()){
-                KodeBarang.addItem(res.getString("kodebarang"));
-            }
-        } catch (SQLException ex) {
-             System.out.println("Terjadi Error"+ex.getMessage());
-        }
+//        try {
+//            Connection kon = connection.getKoneksi();
+//            Statement stt = kon.createStatement();
+//            String SQL = "SELECT * FROM tblbarang";
+//            ResultSet res = stt.executeQuery(SQL);
+//            while(res.next()){
+//                KodeBarang.addItem(res.getString("kodebarang"));
+//            }
+//        } catch (SQLException ex) {
+//             System.out.println("Terjadi Error"+ex.getMessage());
+//        }
     }
     
     public void TampilComboPetugas(){
@@ -735,20 +824,21 @@ public class FrmPenjualan extends javax.swing.JFrame {
     private javax.swing.JButton Cancel;
     private javax.swing.JButton CariData;
     private javax.swing.JButton Close;
-    private javax.swing.JTextField HargaJual;
+    public static javax.swing.JTextField HargaJual;
     private javax.swing.JButton Hitung;
     private javax.swing.JComboBox<String> IDPetugas;
     private javax.swing.JTextField Jumlah;
-    private javax.swing.JComboBox<String> KodeBarang;
-    private javax.swing.JTextField NamaBarang;
+    public static javax.swing.JTextField KDBarang;
+    public static javax.swing.JTextField NamaBarang;
     private javax.swing.JTextField NamaPetugas;
     private javax.swing.JTextField NoFaktur;
     private javax.swing.JButton SaveTransaction;
     private javax.swing.JTextField Sisa;
-    private javax.swing.JTextField Stok;
+    public static javax.swing.JTextField Stok;
     private javax.swing.JTextField SubTotal;
     private javax.swing.JTextField TglPenjualan;
     private javax.swing.JTextField Total;
+    private javax.swing.JButton btncari;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
