@@ -222,7 +222,6 @@ public class FrmBarang extends javax.swing.JFrame {
         Stok = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         AddNew = new javax.swing.JButton();
         Save = new javax.swing.JButton();
@@ -230,6 +229,7 @@ public class FrmBarang extends javax.swing.JFrame {
         Delete = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
         Close = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -321,13 +321,6 @@ public class FrmBarang extends javax.swing.JFrame {
         jLabel10.setText("Rp");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 84, 600, 580));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Form Data Barang");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -337,7 +330,7 @@ public class FrmBarang extends javax.swing.JFrame {
                 AddNewActionPerformed(evt);
             }
         });
-        jPanel3.add(AddNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        jPanel3.add(AddNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         Save.setText("Save");
         Save.addActionListener(new java.awt.event.ActionListener() {
@@ -353,7 +346,7 @@ public class FrmBarang extends javax.swing.JFrame {
                 UpdateActionPerformed(evt);
             }
         });
-        jPanel3.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
+        jPanel3.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
 
         Delete.setText("Delete");
         Delete.addActionListener(new java.awt.event.ActionListener() {
@@ -361,7 +354,7 @@ public class FrmBarang extends javax.swing.JFrame {
                 DeleteActionPerformed(evt);
             }
         });
-        jPanel3.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, -1, -1));
+        jPanel3.add(Delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
 
         Cancel.setText("Cancel");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -369,7 +362,7 @@ public class FrmBarang extends javax.swing.JFrame {
                 CancelActionPerformed(evt);
             }
         });
-        jPanel3.add(Cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
+        jPanel3.add(Cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
 
         Close.setText("Close");
         Close.addActionListener(new java.awt.event.ActionListener() {
@@ -377,11 +370,18 @@ public class FrmBarang extends javax.swing.JFrame {
                 CloseActionPerformed(evt);
             }
         });
-        jPanel3.add(Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        jPanel3.add(Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 660, 600, 40));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 670, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 700));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 84, 670, 650));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Form Data Barang");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

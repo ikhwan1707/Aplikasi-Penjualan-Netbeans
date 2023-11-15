@@ -111,6 +111,11 @@ public class MenuUtama extends javax.swing.JFrame {
         jMenu3.setText("Report");
 
         jMenuItem7.setText("Daftar Report");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuBar1.add(jMenu3);
@@ -165,6 +170,11 @@ public class MenuUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }//GEN-LAST:event_formWindowOpened
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        new FrmDaftarReport().setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments

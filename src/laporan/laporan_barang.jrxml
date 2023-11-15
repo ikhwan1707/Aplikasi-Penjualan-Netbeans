@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a641e7d2-455e-4301-ae89-34980c00a625">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select * from tblbarang]]>
+	</queryString>
+	<field name="kodebarang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="namabarang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="kodejenis" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="harganet" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hargajual" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stok" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="93" splitType="Stretch">
+			<staticText>
+				<reportElement x="155" y="6" width="247" height="33" uuid="2107a7bb-4e6f-41da-bb10-d3290f9947dd"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Data Barang]]></text>
+			</staticText>
+			<image>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="1" y="0" width="98" height="85" uuid="bee55703-17c0-4409-9f40-4f8a7c7c4a5c"/>
+				<imageExpression><![CDATA["C:\\Users\\utama digitall2\\Downloads\\smk - Copy.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="86" y="73" width="378" height="20" uuid="73a3d545-7e21-4c8e-bda0-a6f116f5b5de"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jl. Komplek Pln P3b Jawa Bali No.61 Krukut 16514 Depok West Java]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="39" width="312" height="33" uuid="6ede0d2e-f9ca-438d-9214-9d2a739b7679"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PT SMK INFORMATIKA UTAMA]]></text>
+			</staticText>
+			<image>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="457" y="0" width="98" height="85" uuid="df622e1f-579b-4df0-8b8a-5816812bddaa"/>
+				<imageExpression><![CDATA["C:\\Users\\utama digitall2\\Downloads\\smk - Copy.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<line>
+				<reportElement x="1" y="0" width="554" height="1" uuid="7effbff4-4d09-4d9b-9b89-d960be5a3ab4"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="0" width="554" height="20" backcolor="#009999" uuid="e195c30a-f2ea-4082-b705-a8b7f7c8f7e7"/>
+				<staticText>
+					<reportElement x="217" y="0" width="61" height="20" forecolor="#FFFFFF" uuid="7b854c93-b0b9-4be9-80c2-f1d9ded3052b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Jenis]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement x="1" y="0" width="93" height="20" forecolor="#FFFFFF" uuid="6ef37e45-df22-4925-9689-b98359b37313"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kode Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="0" width="93" height="20" forecolor="#FFFFFF" uuid="ec9266d0-ff44-43f9-b449-f912fb3c5356"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama Barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="0" width="93" height="20" forecolor="#FFFFFF" uuid="f94de4e8-bab9-4068-96ac-4e8550ab4660"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Harga Net]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="20" width="92" height="20" uuid="5d6cb17f-077e-4add-af92-95b4958311da"/>
+				<textFieldExpression><![CDATA[$F{kodebarang}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="0" width="93" height="20" forecolor="#FFFFFF" uuid="9e39f0e2-b556-45df-a7e8-031a423e2580"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Harga Jual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="0" width="56" height="20" forecolor="#FFFFFF" uuid="f4f82502-63c2-4b17-9366-813149236829"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Stock]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="112" y="20" width="93" height="20" uuid="52c87a89-8d8a-40ce-9d61-f4ad1e9bb083"/>
+				<textFieldExpression><![CDATA[$F{namabarang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="20" width="61" height="20" uuid="c44f5e28-286d-4d8d-b7a3-31c914efea82"/>
+				<textFieldExpression><![CDATA[$F{kodejenis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="291" y="20" width="93" height="20" uuid="15980ba8-230c-44a9-b4a1-d9591c9da28c"/>
+				<textFieldExpression><![CDATA[$F{harganet}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="20" width="93" height="20" uuid="df214bee-7352-414a-b672-8b40d6f762e3"/>
+				<textFieldExpression><![CDATA[$F{hargajual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="499" y="20" width="56" height="20" uuid="d0197717-2963-4cc5-bc5c-bf1039402689"/>
+				<textFieldExpression><![CDATA[$F{stok}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="390" y="0" width="100" height="20" uuid="898963c2-0d0f-48dd-8722-8f055025ed59"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="517" y="0" width="38" height="20" uuid="1ed74cf6-74e2-47a6-be14-f4a83edd79e5"/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="363" y="0" width="27" height="20" uuid="5a2368f8-8507-43ff-9903-f5c0de8119f7"/>
+				<text><![CDATA[Page]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="0" width="27" height="20" uuid="7e3adf74-6c96-4565-ba5b-740bb20d8bbe"/>
+				<text><![CDATA[of]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

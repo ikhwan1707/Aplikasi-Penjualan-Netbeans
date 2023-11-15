@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author PY7
  */
-public class ListBarang extends javax.swing.JFrame {
+public class ListPetugas extends javax.swing.JFrame {
     
     private DefaultTableModel model;
     
@@ -28,17 +28,13 @@ public class ListBarang extends javax.swing.JFrame {
             Connection c = connection.getKoneksi();
             Statement s = c.createStatement();
             
-            String sql = "SELECT * FROM tblbarang";
+            String sql = "SELECT * FROM tblpetugas";
             ResultSet r = s.executeQuery(sql);
             
             while (r.next()) {                
                 Object[] o = new Object[6];
-                o [0] = r.getString("kodebarang");
-                o [1] = r.getString("namabarang");
-                o [2] = r.getString("kodejenis");
-                o [3] = r.getString("harganet");
-                o [4] = r.getString("hargajual");
-                o [5] = r.getString("stok");
+                o [0] = r.getString("idpetugas");
+                o [1] = r.getString("namapetugas");
                 
                 model.addRow(o);
             }
@@ -52,27 +48,19 @@ public class ListBarang extends javax.swing.JFrame {
     public void cari(){
         DefaultTableModel tabel = new DefaultTableModel();
         
-        tabel.addColumn("ID Barang");
-        tabel.addColumn("Nama Barang");
-        tabel.addColumn("Jenis");
-        tabel.addColumn("Ukuran");
-        tabel.addColumn("Harga");
-        tabel.addColumn("Stok");
+        tabel.addColumn("ID Petugas");
+        tabel.addColumn("Nama Petugas");
         
         try {
             Connection c = connection.getKoneksi();
-            String sql = "Select * from tblbarang where kodebarang like '%" + txCari.getText() + "%'" +
-                    "or namabarang like '%" + txCari.getText() + "%'";
+            String sql = "Select * from tblpetugas where idpetugas like '%" + txCari.getText() + "%'" +
+                    "or namapetugas like '%" + txCari.getText() + "%'";
             Statement stat = c.createStatement();
             ResultSet rs = stat.executeQuery(sql);
             while (rs.next()) {                
                 tabel.addRow(new Object[]{
                     rs.getString(1),
                     rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
                 });
             }
             jTable1.setModel(tabel);
@@ -86,7 +74,7 @@ public class ListBarang extends javax.swing.JFrame {
     /**
      * Creates new form ListBarang
      */
-    public ListBarang() {
+    public ListPetugas() {
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
@@ -94,12 +82,8 @@ public class ListBarang extends javax.swing.JFrame {
         
         jTable1.setModel(model);
         
-        model.addColumn("ID Barang");
-        model.addColumn("Nama Barang");
-        model.addColumn("Jenis");
-        model.addColumn("Ukuran");
-        model.addColumn("HargaJual");
-        model.addColumn("Stok");
+        model.addColumn("ID Petugas");
+        model.addColumn("Nama Petugas");
         
         loadData();
     }
@@ -206,15 +190,11 @@ public class ListBarang extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = jTable1.getSelectedRow();
         
-        String KB = jTable1.getValueAt(i, 0).toString();
-        String NM = jTable1.getValueAt(i, 1).toString();
-        String HJ = jTable1.getValueAt(i, 4).toString();
-        String S = jTable1.getValueAt(i, 5).toString();
+        String ID = jTable1.getValueAt(i, 0).toString();
+        String NP = jTable1.getValueAt(i, 1).toString();
                 
-        FrmPenjualan.KDBarang.setText(KB);
-        FrmPenjualan.NamaBarang.setText(NM);
-        FrmPenjualan.HargaJual.setText(HJ);
-        FrmPenjualan.Stok.setText(S);
+        FrmPenjualan.KDBarang.setText(ID);
+        FrmPenjualan.NamaBarang.setText(NP);
         
         dispose();
     }//GEN-LAST:event_btnPilihActionPerformed
@@ -253,14 +233,18 @@ public class ListBarang extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPetugas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPetugas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPetugas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListBarang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPetugas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -269,7 +253,7 @@ public class ListBarang extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListBarang().setVisible(true);
+                new ListPetugas().setVisible(true);
             }
         });
     }
